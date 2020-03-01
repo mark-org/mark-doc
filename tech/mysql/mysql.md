@@ -26,7 +26,6 @@ explain select * from (SELECT * FROM repository.auth_res limit 100) t where res_
 # 执行计划
 const, system: 单表中最多有一个匹配行，查询起来非常迅速，例如根据主键或唯一索引查询
 
-
 explain select * from auth_res r
 	where exists (select 1 from auth_res where res_id = 1 and res_id = r.res_id)
 
