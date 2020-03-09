@@ -51,6 +51,31 @@ Redis中所有的数据都是字符串。命令不区分大小写，key是区分
 
 
 
+### 常用命令
+* keys pattern (统计需要使用redis-cli xxx  keys * | wc -l)
+* exists key_name
+* type key_name
+* strlen key_name
+* append key_name
+* incr key_name
+* incrby key_name number
+* getset 返回旧值
+* expire 过期时间(秒)或在set的时候设置
+* ttl查看剩下多少时间
+
+
+### Redis分布式锁
+setnx 设置 key 对应的值为 string 类型的 value。如果 key 已经存在，返回 0，nx 是 not exist 的意思。
+* 先用setnx来争抢锁，抢到之后，再用expire给锁加一个过期时间防止锁忘记了释放
+
+### 为什么默认16个数据库
+* 基于单机才有，如果是集群就没有数据库的概念
+* Redis是一个字典结构的存储服务器，一个Redis实例提供了多个用来存储数据的字典，客户端可以指定将数据存储在哪个字典中。
+* Redis默认支持16个数据库，可以通过调整Redis的配置文件redis/redis.conf中的databases来修改这一个值，设置完毕后重启Redis便完成配置。
+	默认连接是0 select替换 (配置也可以指定)
+
+### 清空一个Redis实例中所有数据库中的数据redis 127.0.0.1:6379> FLUSHALL	
+* Redis集群模式下只有一个db0
 
 
 
