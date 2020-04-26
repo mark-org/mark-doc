@@ -42,6 +42,72 @@ integer的秒数(seconds-since-the-epoch)
 用于设置字段的权限，比如，关键字出现在title字段的权重是出现在content字段中权重的2倍，设置mapping如下，其中content字段的默认权重是1.
 
 
+# ES - Index Templates 全局index模板
+* 模板匹配规则
+
+# 修改mapping
+Elasticsearch的mapping一旦创建，只能增加字段，而不能修改已经mapping的字段。
+# 平滑过渡(访问同义词)
+采取什么合理设计呢？就是我们的程序访问索引库时，始终使用同义词来访问，而不要使用真正的indexName。
+在reindex完数据之后，修改之前的同义词即可
+# 过程
+1. 创建一个索引，最好带上版本号_v1
+2. 创建一个同义词
+```
+curl -XPOST localhost:9200/_aliases -d '
+{
+    "actions": [
+        { "add": {
+            "alias": "my_index",
+            "index": "my_index_v1"
+        }}
+    ]
+}
+'
+
+curl -XPOST localhost:9200/_aliases -d '
+{
+    "actions": [
+        { "remove": {
+            "alias": "my_index",
+            "index": "my_index_v1"
+        }},
+        { "add": {
+            "alias": "my_index",
+            "index": "my_index_v2"
+        }}
+    ]
+}
+'
+curl -XDELETE localhost:9200/my_index_v1
+
+
+```
+# elasticsearch 索引复制 数据
+```
+http://localhost:9200/_reindex
+{
+
+  "source": {
+    "index": "old_index"
+  },
+  "dest": {
+    "index": "new_index",
+    "op_type": "create"
+  }
+}
+``` 
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
+
+
+
+
 
 
 

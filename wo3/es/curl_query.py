@@ -17,6 +17,16 @@ body_json = {
   }
 }
 
+body_json = {
+  "query": {
+    "match": {
+      "author.keyword": "我是中国人"
+    }
+  }
+}
+
+
+
 body_json = json.dumps(body_json).replace("\"", "\\\"")
 
 host = "http://134.175.231.104:9200/"
@@ -33,3 +43,5 @@ print(cmd)
 (status, output) = subprocess.getstatusoutput(cmd)
 print(output)
 print("-----------------end-----------------")
+
+
