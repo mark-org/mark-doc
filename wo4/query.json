@@ -1,0 +1,10 @@
+{
+  "query": {
+    "match": {
+      "author": {
+        "query": "我是中国人",
+        "operator": "and"
+      }
+    }
+  }
+}
