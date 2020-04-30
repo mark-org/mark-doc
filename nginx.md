@@ -24,4 +24,12 @@ location / {
 			proxy_read_timeout 120;
 }
 
+中设
+proxy_next_upstream http_502 http_504 error timeout invalid_header;
+
+由于存过的处理时间超时造成
+把/usr/local/nginx/conf/nginx.conf的proxy_read_timeout 90;改成proxy_read_timeout 180;
+
+
+
 
